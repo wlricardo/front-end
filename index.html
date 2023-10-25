@@ -67,20 +67,22 @@
             draw: function () {
                 gameContext.fillStyle = "#fff"
                 gameContext.beginPath()
-                gameContext.arc(200, 300, 20, 0, 2 * Math.PI, false)
+                gameContext.arc(370, 110, 20, 0, 2 * Math.PI, false)
                 gameContext.fill()
             }
         }
 
         // Objeto do tipo placar
         const scoreBoard = {
+            human: 3,
+            computer: 2,
             draw: function () {
                 gameContext.font = "bold 72px Arial"
                 gameContext.textAlign = "center"
                 gameContext.textBaseline = "top"
                 gameContext.fillStyle = "#01341D"
-                gameContext.fillText("3", window.innerWidth / 4, 50)
-                gameContext.fillText("2", window.innerWidth * (3 / 4), 50)
+                gameContext.fillText(this.human, field.w / 4, 50)
+                gameContext.fillText(this.computer, field.w * (3 / 4), 50)
             }
         }
 
@@ -94,8 +96,8 @@
             line.draw()         // Desenhando a linha central            
             leftPaddle.draw()   // Desenhando raquete esquerda
             rightPaddle.draw()  // Desenhando raquete direita
-            ball.draw()         // Desenha a bola
-            scoreBoard.draw()   // Desenha o placar
+            scoreBoard.draw()   // Desenhando o placar
+            ball.draw()         // Desenhando a bola
         }
 
         Setup()
