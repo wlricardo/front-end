@@ -17,8 +17,8 @@
 <body>
     <canvas></canvas>
     <script>
-        const gameElement = document.querySelector("canvas"),
-            gameContext = gameElement.getContext("2d")
+        const gameElement = document.querySelector("canvas")
+        const gameContext = gameElement.getContext("2d")
         const lineWidth = 15
 
         // Objeto do tipo campo
@@ -27,8 +27,61 @@
             h: window.innerHeight,
             draw: function () {
                 gameContext.fillStyle = "#286047"
-                gameContext.fillRect(0, 0, w, h)
-            },
+                gameContext.fillRect(0, 0, this.w, this.h)
+            }
+        }
+
+        // Objetodo tipo linha
+        const line = {
+            w: 15,
+            h: field.h,
+            draw: function () {
+                gameContext.fillStyle = "#ffffff"
+                gameContext.fillRect(
+                    field.w / 2 - this.w / 2,
+                    0,
+                    this.w,
+                    this.h
+                )
+            }
+        }
+
+        // Objeto do tipo raquete esquerda
+        const leftPaddle = {
+            draw: function () {
+                gameContext.fillStyle = "#fff"
+                gameContext.fillRect(10, 300, lineWidth, 200)
+            }
+        }
+
+        // Objeto do tipo raquete direita
+        const rightPaddle = {
+            draw: function () {
+                gameContext.fillStyle = "#fff"
+                gameContext.fillRect(window.innerWidth - (lineWidth + 10), 300, lineWidth, 200)
+            }
+        }
+
+        // Objeto do tipo bola
+        const ball = {
+            draw: function () {
+                gameContext.fillStyle = "#fff"
+                gameContext.beginPath()
+                gameContext.arc(200, 300, 20, 0, 2 * Math.PI, false)
+                gameContext.fill()
+            }
+        }
+
+        // Objeto do tipo placar
+        const scoreBoard = {
+            draw: function () {
+                gameContext.font = "bold 72px Arial"
+                gameContext.textAlign = "center"
+                gameContext.textBaseline = "top"
+                gameContext.fillStyle = "#01341D"
+                gameContext.fillText("3", window.innerWidth / 4, 50)
+                gameContext.fillText("2", window.innerWidth * (3 / 4), 50)
+            }
         }
 
         function Setup() {
@@ -37,36 +90,12 @@
         }
 
         function Draw() {
-            // Desenhando o campo
-            field.draw()
-
-            // Desenhando a linha central
-            gameContext.fillStyle = "#ffffff"
-            gameContext.fillRect(
-                window.innerWidth / 2 - lineWidth / 2,
-                0,
-                lineWidth,
-                window.innerHeight
-            )
-
-            // Desenhando raquete esquerda
-            gameContext.fillRect(10, 300, lineWidth, 200)
-
-            // Desenhando raquete direita
-            gameContext.fillRect(window.innerWidth - (lineWidth + 10), 300, lineWidth, 200)
-
-            // Desenha a bola
-            gameContext.beginPath();
-            gameContext.arc(200, 300, 20, 0, 2 * Math.PI, false);
-            gameContext.fill();
-
-            // Desenha o placar
-            gameContext.font = "bold 72px Arial"
-            gameContext.textAlign = "center"
-            gameContext.textBaseline = "top"
-            gameContext.fillStyle = "#01341D"
-            gameContext.fillText("3", window.innerWidth / 4, 50)
-            gameContext.fillText("2", window.innerWidth * (3 / 4), 50)
+            field.draw()        // Desenhando o campo            
+            line.draw()         // Desenhando a linha central            
+            leftPaddle.draw()   // Desenhando raquete esquerda
+            rightPaddle.draw()  // Desenhando raquete direita
+            ball.draw()         // Desenha a bola
+            scoreBoard.draw()   // Desenha o placar
         }
 
         Setup()
