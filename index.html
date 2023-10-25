@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ping-Pong</title>
+    <style>
+        * {
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas></canvas>
+    <script>
+        const gameElement = document.querySelector("canvas"),
+            gameContext = gameElement.getContext("2d")
+        const lineWidth = 15
+
+        // Objeto do tipo campo
+        const field = {
+            w: window.innerWidth,
+            h: window.innerHeight,
+            draw: function () {
+                gameContext.fillStyle = "#286047"
+                gameContext.fillRect(0, 0, w, h)
+            },
+        }
+
+        function Setup() {
+            gameElement.width = gameContext.width = field.w
+            gameElement.height = gameContext.height = field.h
+        }
+
+        function Draw() {
+            // Desenhando o campo
+            field.draw()
+
+            // Desenhando a linha central
+            gameContext.fillStyle = "#ffffff"
+            gameContext.fillRect(
+                window.innerWidth / 2 - lineWidth / 2,
+                0,
+                lineWidth,
+                window.innerHeight
+            )
+
+            // Desenhando raquete esquerda
+            gameContext.fillRect(10, 300, lineWidth, 200)
+
+            // Desenhando raquete direita
+            gameContext.fillRect(window.innerWidth - (lineWidth + 10), 300, lineWidth, 200)
+
+            // Desenha a bola
+            gameContext.beginPath();
+            gameContext.arc(200, 300, 20, 0, 2 * Math.PI, false);
+            gameContext.fill();
+
+            // Desenha o placar
+            gameContext.font = "bold 72px Arial"
+            gameContext.textAlign = "center"
+            gameContext.textBaseline = "top"
+            gameContext.fillStyle = "#01341D"
+            gameContext.fillText("3", window.innerWidth / 4, 50)
+            gameContext.fillText("2", window.innerWidth * (3 / 4), 50)
+        }
+
+        Setup()
+        Draw()
+    </script>
+</body>
+
+</html>
