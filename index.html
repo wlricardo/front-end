@@ -64,11 +64,21 @@
 
         // Objeto do tipo bola
         const ball = {
+
+            x: 370,
+            y: 110,
+            r: 20,
+            speed: 5,
+            _move: function () {
+                this.x += 1 * this.speed
+                this.y += 1 * this.speed
+            },
             draw: function () {
                 gameContext.fillStyle = "#fff"
                 gameContext.beginPath()
-                gameContext.arc(370, 110, 20, 0, 2 * Math.PI, false)
+                gameContext.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false)
                 gameContext.fill()
+                this._move()
             }
         }
 
@@ -102,6 +112,7 @@
 
         Setup()
         Draw()
+        window.setInterval(Draw, 1000 / 60)
     </script>
 </body>
 
